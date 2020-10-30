@@ -7,6 +7,7 @@ import android.speech.tts.TextToSpeech
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a7minworkout.databinding.ActivityExcerciseBinding
 import java.util.*
 
@@ -24,6 +25,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var textToSpeech: TextToSpeech
 
     private lateinit var mediaPlayer: MediaPlayer
+
+    private lateinit var exerciseAdapter: ExerciseStatusAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +51,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         setRestView()
 
+        setExStatusAdapter()
+
     }
 
     private fun setRestProgressBar() {
@@ -71,7 +76,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 binding.llExerciseView.visibility = View.VISIBLE
 
                 currentExercisePosition++
-
+                exerciseList[currentExercisePosition].isSelected = true
+                exerciseAdapter.notifyDataSetChanged()
                 setExerciseView()
             }
 
@@ -132,6 +138,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
             override fun onFinish() {
                 if (currentExercisePosition < exerciseList.size - 1) {
+
+                    exerciseList[currentExercisePosition].isSelected = false
+                    exerciseList[currentExercisePosition].isCompleted = true
+                    exerciseAdapter.notifyDataSetChanged()
+
                     setRestView()
                 } else {
                     Toast.makeText(
@@ -179,5 +190,12 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun speakOut(text: String) {
         textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    private fun setExStatusAdapter() {
+        binding.rvExerciseStatus.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        exerciseAdapter = ExerciseStatusAdapter(exerciseList)
+        binding.rvExerciseStatus.adapter = exerciseAdapter
     }
 }

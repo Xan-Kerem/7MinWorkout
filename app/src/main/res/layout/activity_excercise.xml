@@ -19,6 +19,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/rvExerciseStatus"
         app:layout_constraintTop_toBottomOf="@id/toolbar_exercise_activity">
 
         <TextView
@@ -71,8 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="UPCOMING EXERCISE : "
-            android:textSize="16sp"
-             />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvUpcomingExerciseName"
@@ -92,10 +93,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?android:attr/actionBarSize"
+        android:layout_marginBottom="?android:attr/actionBarSize"
         android:gravity="bottom|center_horizontal"
         android:orientation="vertical"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_exercise_activity"
@@ -162,11 +163,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_exercise_activity" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
