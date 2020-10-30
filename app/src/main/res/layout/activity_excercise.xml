@@ -72,7 +72,7 @@
             android:layout_marginTop="20dp"
             android:text="UPCOMING EXERCISE : "
             android:textSize="16sp"
-            android:visibility="invisible" />
+             />
 
         <TextView
             android:id="@+id/tvUpcomingExerciseName"
@@ -83,6 +83,7 @@
             android:textSize="22sp"
             android:textStyle="bold"
             tools:text="Exercise Name" />
+
 
     </LinearLayout>
 
