@@ -1,5 +1,6 @@
 package com.example.a7minworkout
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
@@ -22,6 +23,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private lateinit var textToSpeech: TextToSpeech
 
+    private lateinit var mediaPlayer: MediaPlayer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,6 +43,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         textToSpeech = TextToSpeech(this, this)
 
         exerciseList = ExerciseConstants.defaultExerciseList()
+
+        mediaPlayer = MediaPlayer.create(applicationContext, R.raw.press_start)
 
         setRestView()
 
@@ -80,7 +85,23 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             restProgress = 0
         }
         binding.tvUpcomingExerciseName.text = exerciseList[currentExercisePosition + 1].name
+
+        setMediaPlayer()
+
         setRestProgressBar()
+    }
+
+    private fun setMediaPlayer() {
+        try {
+
+            mediaPlayer.apply {
+                isLooping = false
+                start()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(this, "could not start player!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setExerciseView() {
@@ -135,6 +156,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (::textToSpeech.isInitialized) {
             textToSpeech.stop()
             textToSpeech.shutdown()
+        }
+        if (::mediaPlayer.isInitialized) {
+            mediaPlayer.stop()
         }
     }
 
