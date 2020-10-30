@@ -43,6 +43,9 @@ class ExerciseActivity : AppCompatActivity() {
 
         binding.progressBar.progress = restProgress
 
+        binding.llRestView.visibility = View.VISIBLE
+        binding.llExerciseView.visibility = View.GONE
+
         restTimer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
@@ -55,8 +58,8 @@ class ExerciseActivity : AppCompatActivity() {
             override fun onFinish() {
                 binding.llRestView.visibility = View.GONE
                 binding.llExerciseView.visibility = View.VISIBLE
-                setExerciseView()
                 currentExercisePosition++
+                setExerciseView()
             }
 
         }.start()
@@ -82,22 +85,28 @@ class ExerciseActivity : AppCompatActivity() {
     private fun setExerciseProgressBar() {
 
         binding.progressBarExercise.progress = exerciseProgress
+        binding.ivImage.setImageResource(exerciseList[currentExercisePosition].image)
+        binding.tvExerciseName.text = exerciseList[currentExercisePosition].name
 
-        exerciseTimer = object : CountDownTimer(30000, 1000) {
+        exerciseTimer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
-                binding.progressBarExercise.progress = 30 - exerciseProgress
+                binding.progressBarExercise.progress = 10 - exerciseProgress
 
-                binding.tvExerciseTimer.text = (30 - exerciseProgress).toString()
+                binding.tvExerciseTimer.text = (10 - exerciseProgress).toString()
 
             }
 
             override fun onFinish() {
-                Toast.makeText(
-                    this@ExerciseActivity,
-                    "Here u are!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                if (currentExercisePosition < exerciseList.size - 1) {
+                    setRestView()
+                } else {
+                    Toast.makeText(
+                        this@ExerciseActivity,
+                        "Congratulations! U'v completed the 7 min workout!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
 
         }.start()
