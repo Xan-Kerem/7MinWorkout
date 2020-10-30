@@ -15,6 +15,9 @@ class ExerciseActivity : AppCompatActivity() {
     private lateinit var exerciseTimer: CountDownTimer
     private var exerciseProgress = 0
 
+    private lateinit var exerciseList: ArrayList<ExerciseModel>
+    private var currentExercisePosition = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,6 +32,8 @@ class ExerciseActivity : AppCompatActivity() {
         binding.toolbarExerciseActivity.setNavigationOnClickListener {
             onBackPressed()
         }
+
+        exerciseList = ExerciseConstants.defaultExerciseList()
 
         setRestView()
 
@@ -51,6 +56,7 @@ class ExerciseActivity : AppCompatActivity() {
                 binding.llRestView.visibility = View.GONE
                 binding.llExerciseView.visibility = View.VISIBLE
                 setExerciseView()
+                currentExercisePosition++
             }
 
         }.start()
