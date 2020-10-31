@@ -29,25 +29,29 @@ class ExerciseStatusAdapter(val items: ArrayList<ExerciseModel>) :
         val item = items[position]
         holder.tvItem.text = item.id.toString()
 
-        if (item.isSelected) {
-            holder.tvItem.background = ContextCompat.getDrawable(
-                holder.tvItem.context,
-                R.drawable.item_circular_thin_color_accent_border
-            )
-            holder.tvItem.setTextColor(Color.parseColor("#212121"))
-        }else if (item.isCompleted){
-            holder.tvItem.background = ContextCompat.getDrawable(
-                holder.tvItem.context,
-                R.drawable.item_circular_color_accent_background
-            )
-            holder.tvItem.setTextColor(Color.parseColor("#FFFFFF"))
+        when {
+            item.isSelected -> {
+                holder.tvItem.background = ContextCompat.getDrawable(
+                    holder.tvItem.context,
+                    R.drawable.item_circular_thin_color_accent_border
+                )
+                holder.tvItem.setTextColor(Color.parseColor("#212121"))
+            }
+            item.isCompleted -> {
+                holder.tvItem.background = ContextCompat.getDrawable(
+                    holder.tvItem.context,
+                    R.drawable.item_circular_color_accent_background
+                )
+                holder.tvItem.setTextColor(Color.parseColor("#FFFFFF"))
 
-        }else{
-            holder.tvItem.background = ContextCompat.getDrawable(
-                holder.tvItem.context,
-                R.drawable.item_circular_color_gray_background
-            )
-            holder.tvItem.setTextColor(Color.parseColor("#212121"))
+            }
+            else -> {
+                holder.tvItem.background = ContextCompat.getDrawable(
+                    holder.tvItem.context,
+                    R.drawable.item_circular_color_gray_background
+                )
+                holder.tvItem.setTextColor(Color.parseColor("#212121"))
+            }
         }
 
     }
