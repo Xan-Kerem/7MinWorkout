@@ -1,5 +1,6 @@
 package com.example.a7minworkout
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -137,7 +138,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
 
             override fun onFinish() {
-                if (currentExercisePosition < exerciseList.size - 1) {
+//                if (currentExercisePosition < exerciseList.size - 1) {
+                if (currentExercisePosition < 2) {
 
                     exerciseList[currentExercisePosition].isSelected = false
                     exerciseList[currentExercisePosition].isCompleted = true
@@ -145,11 +147,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                     setRestView()
                 } else {
-                    Toast.makeText(
-                        this@ExerciseActivity,
-                        "Congratulations! U'v completed the 7 min workout!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    finish()
+                    startActivity(Intent(this@ExerciseActivity, FinishActivity::class.java))
                 }
             }
 
