@@ -1,5 +1,6 @@
 package com.example.a7minworkout
 
+import android.app.Dialog
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.a7minworkout.databinding.ActivityExcerciseBinding
+import com.example.a7minworkout.databinding.DialogCustomBackConfirmationBinding
 import java.util.*
 
 class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
@@ -41,7 +43,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.toolbarExerciseActivity.setNavigationOnClickListener {
-            onBackPressed()
+            customDialogBackButton()
         }
 
         textToSpeech = TextToSpeech(this, this)
@@ -138,8 +140,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
 
             override fun onFinish() {
-//                if (currentExercisePosition < exerciseList.size - 1) {
-                if (currentExercisePosition < 2) {
+                if (currentExercisePosition < exerciseList.size - 1) {
 
                     exerciseList[currentExercisePosition].isSelected = false
                     exerciseList[currentExercisePosition].isCompleted = true
@@ -196,5 +197,24 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         exerciseAdapter = ExerciseStatusAdapter(exerciseList)
         binding.rvExerciseStatus.adapter = exerciseAdapter
+    }
+
+    private fun customDialogBackButton() {
+
+        val customDialog = Dialog(this)
+
+        val dCBCB =
+            DialogCustomBackConfirmationBinding.inflate(layoutInflater)
+
+        customDialog.setContentView(dCBCB.root)
+
+        dCBCB.tvYes.setOnClickListener {
+            finish()
+            customDialog.dismiss()
+        }
+        dCBCB.tvNo.setOnClickListener {
+            customDialog.dismiss()
+        }
+        customDialog.show()
     }
 }
