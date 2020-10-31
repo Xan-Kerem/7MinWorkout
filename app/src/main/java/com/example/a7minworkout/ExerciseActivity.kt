@@ -40,7 +40,10 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         setSupportActionBar(binding.toolbarExerciseActivity)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = "CALCULATE BMI"
+        }
 
         binding.toolbarExerciseActivity.setNavigationOnClickListener {
             customDialogBackButton()
