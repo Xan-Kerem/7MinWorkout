@@ -22,7 +22,10 @@ class BMIActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbarBmiActivity)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = "BMI"
+        }
         binding.toolbarBmiActivity.setNavigationOnClickListener {
             onBackPressed()
         }
